@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "worldfuzz-example-trajectory-extent"
+version = "0.2.0"
+requires-python = ">=3.11"
+description = "Offline adapter example for WorldFuzz; not a robot accuracy benchmark"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["worldfuzz>=0.4.0rc4,<0.5"]
+
+[project.entry-points."worldfuzz.adapters"]
+trajectory-extent = "trajectory_extent:ExtentAdapter"
+
+[tool.setuptools.packages.find]
+include = ["trajectory_extent*"]
+
+[tool.setuptools.package-data]
+trajectory_extent = ["sample.json"]

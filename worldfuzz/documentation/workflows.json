@@ -1,0 +1,200 @@
+[
+  {
+    "id": "navigation",
+    "title": "Solve a published Moving AI task",
+    "profile": "movingai.octile.v1",
+    "operation": "solve_navigation",
+    "parameters": {
+      "case_indices": [
+        0
+      ],
+      "max_cases": 1,
+      "algorithm": "astar"
+    },
+    "inputs": "Bundled original city map and scenario; canonical movingai:0 (zero-based index 0).",
+    "requirements": "Base runtime, accessible source versions, finite runner budget. A* and Dijkstra are available.",
+    "evidence": "A new route, original provenance and independently recomputed grid validity and published optimal length; no body dynamics.",
+    "mode": "metric_recompute"
+  },
+  {
+    "id": "navigation-verify",
+    "title": "Check saved navigation episodes",
+    "profile": "movingai.octile.v1",
+    "operation": "verify_episodes",
+    "parameters": {
+      "filters": {
+        "domain": "navigation"
+      }
+    },
+    "inputs": "Existing catalog episodes in the selected domain; these are saved recordings.",
+    "requirements": "Existing complete source records and inspection rights. No download or reimport is performed.",
+    "evidence": "Record structure and stored integrity; the saved labels do not become newly demonstrated task outcomes.",
+    "mode": "integrity"
+  },
+  {
+    "id": "navigation-export",
+    "title": "Export navigation recordings",
+    "profile": "movingai.octile.v1",
+    "operation": "export_dataset",
+    "parameters": {
+      "filters": {
+        "domain": "navigation"
+      }
+    },
+    "inputs": "Existing episodes and their complete linked groups.",
+    "requirements": "Source export permission, owner grant, space within the artifact ceiling; existing IDs/groups/splits stay unchanged.",
+    "evidence": "Checked episodes.jsonl and dataset-manifest.json; dataset integrity, not new robotics execution.",
+    "mode": "integrity",
+    "artifact_mib": 64
+  },
+  {
+    "id": "manipulation-verify",
+    "title": "Check saved manipulation episodes",
+    "profile": "robomimic.can-paired.v1",
+    "operation": "verify_episodes",
+    "parameters": {
+      "filters": {
+        "domain": "manipulation"
+      }
+    },
+    "inputs": "Existing catalog episodes in the selected domain; these are saved recordings.",
+    "requirements": "Existing complete source records and inspection rights. No download or reimport is performed.",
+    "evidence": "Record structure and stored integrity; the saved labels do not become newly demonstrated task outcomes.",
+    "mode": "integrity"
+  },
+  {
+    "id": "manipulation-export",
+    "title": "Export manipulation recordings",
+    "profile": "robomimic.can-paired.v1",
+    "operation": "export_dataset",
+    "parameters": {
+      "filters": {
+        "domain": "manipulation"
+      }
+    },
+    "inputs": "Existing episodes and their complete linked groups.",
+    "requirements": "Source export permission, owner grant, space within the artifact ceiling; existing IDs/groups/splits stay unchanged.",
+    "evidence": "Checked episodes.jsonl and dataset-manifest.json; dataset integrity, not new robotics execution.",
+    "mode": "integrity",
+    "artifact_mib": 64
+  },
+  {
+    "id": "recorded-can",
+    "title": "View recorded Can states",
+    "profile": "robomimic.can-paired.v1",
+    "operation": "view_recorded_states",
+    "parameters": {
+      "episode_id": "replace-with-episode-id",
+      "start_index": 0,
+      "frame_count": 3,
+      "stride": 1
+    },
+    "inputs": "One existing Can episode ID from find_resources.",
+    "requirements": "The retained catalog payload. No simulator is needed; state vectors are not policy observations.",
+    "evidence": "A window of recorded states with original indices. No actions are executed and replay is not established.",
+    "mode": "integrity"
+  },
+  {
+    "id": "can-action-replay",
+    "title": "Execute recorded Can actions in a simulator",
+    "profile": "robomimic.can-paired.action-replay.v1",
+    "operation": "replay_can_actions",
+    "parameters": {
+      "episode_id": "replace-with-episode-id"
+    },
+    "inputs": "Existing Can episode, exact XML model and versioned controller/state supplement.",
+    "requirements": "Pinned can-replay extra and accepted model: 71 values = time + 37 qpos + 33 qvel; OSC_POSE, 20 Hz, world input frame. Unknown control/frame semantics block replay.",
+    "evidence": "Initial state is loaded once, then actions execute headlessly. Independent PickPlaceCan object/bin/gripper geometry is checked separately from recorded reward/done. This is simulator execution, never physical replay.",
+    "mode": "metric_recompute",
+    "seconds": 180,
+    "cpu": 120,
+    "memory_mib": 2048,
+    "artifact_mib": 64
+  },
+  {
+    "id": "trajectory",
+    "title": "Evaluate registered XYZ trajectories",
+    "profile": "sensor.trajectory.xyz.v1",
+    "operation": "evaluate_trajectory",
+    "parameters": {
+      "asset_id": "replace-with-paired-trajectory-id",
+      "threshold_m": 0.1
+    },
+    "inputs": "One registered asset containing prediction and reference XYZ tracks with equal timestamps; register_trajectory accepts paired TUM files.",
+    "requirements": "Explicit shared coordinate frame and metres, appropriate rights and a supplied reference. No automatic spatial/time alignment. MCAP is rejected for this operation.",
+    "evidence": "Unaligned position RMSE against the supplied reference and threshold, independently recomputed; no inferred flight outcome.",
+    "mode": "metric_recompute"
+  },
+  {
+    "id": "mcap",
+    "title": "Inspect a ROS/MCAP sensor recording",
+    "profile": "sensor.mcap.aerial.v1",
+    "operation": "inspect_sensor_recording",
+    "parameters": {
+      "asset_id": "replace-with-mcap-asset-id",
+      "max_messages": 10
+    },
+    "inputs": "Existing registered ROS1/ROS2 MCAP bytes and declared source revision, frame, units and platform.",
+    "requirements": "Register through register_sensor_recording (at most 1 MiB input), with source permissions. The source URL is provenance, not an automatic download.",
+    "evidence": "Original timestamps and message inventory with exact decimal-string nanoseconds. No invented control command, trajectory reference or flight success.",
+    "mode": "integrity"
+  },
+  {
+    "id": "pymunk",
+    "title": "Run the published falling-ball engine task",
+    "profile": "pymunk.basic-fall.v7.2",
+    "operation": "run_pymunk_basic",
+    "parameters": {
+      "seed": 42
+    },
+    "inputs": "Bundled pinned Pymunk basic_test task, canonical pymunk:basic_test:7.2.0.",
+    "requirements": "pymunk 7.2.0 and the native-engine version from the profile. Headless, finite runner limits.",
+    "evidence": "The actual engine runs; a Pymunk-free verifier checks states and removal below y=0 in pixel units. No real-world equivalence.",
+    "mode": "metric_recompute",
+    "memory_mib": 512
+  },
+  {
+    "id": "navigation-dataset",
+    "title": "Build a navigation dataset generation",
+    "profile": "dataset.navigation.jsonl.v1",
+    "operation": "build_dataset",
+    "parameters": {
+      "episode_ids": [
+        "replace-with-first-episode-id",
+        "replace-with-linked-episode-id"
+      ],
+      "purpose": "evaluation",
+      "normalization_split": "train"
+    },
+    "inputs": "Existing exact episode IDs, including every member of each selected group.",
+    "requirements": "Pinned reader/runtime when using LeRobot (see profile); source export rights. Training purpose accepts only train records; normalization uses train data only.",
+    "evidence": "Immutable DatasetManifest, preserved values/time/groups/rights/provenance and checked format round trip. Named observations remain observations; no training or task execution.",
+    "mode": "metric_recompute",
+    "seconds": 180,
+    "cpu": 120,
+    "memory_mib": 256,
+    "artifact_mib": 128
+  },
+  {
+    "id": "can-lerobot",
+    "title": "Build a Can LeRobot v3 generation",
+    "profile": "dataset.can.lerobot.v3",
+    "operation": "build_dataset",
+    "parameters": {
+      "episode_ids": [
+        "replace-with-first-episode-id",
+        "replace-with-linked-episode-id"
+      ],
+      "purpose": "evaluation",
+      "normalization_split": "train"
+    },
+    "inputs": "Existing exact episode IDs, including every member of each selected group.",
+    "requirements": "Pinned reader/runtime when using LeRobot (see profile); source export rights. Training purpose accepts only train records; normalization uses train data only.",
+    "evidence": "Immutable DatasetManifest, preserved values/time/groups/rights/provenance and checked format round trip. Named observations remain observations; no training or task execution.",
+    "mode": "metric_recompute",
+    "seconds": 180,
+    "cpu": 120,
+    "memory_mib": 2048,
+    "artifact_mib": 128
+  }
+]

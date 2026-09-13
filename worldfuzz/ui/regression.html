@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WorldFuzz | Navigation regression workspace</title>
+  <meta name="description" content="Compare external planner configurations, preserve navigation regressions, and replay the evidence.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/app.css"><link rel="stylesheet" href="/regression.css">
+  <script type="module" src="/regression.mjs"></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="/regression" aria-label="WorldFuzz navigation workspace"><span class="brand-mark">W/</span>WorldFuzz</a><span class="product-label">NAVIGATION REGRESSIONS</span><a class="legacy-link" href="/benchmarks">Published cases</a><span class="local-label">Local execution <span class="divider">/</span> No API calls</span></header>
+<div class="workspace regression-workspace">
+  <aside class="sidebar">
+    <p class="eyebrow">01 / YOUR COMPARISON</p><h1>Choose a task.</h1>
+    <form id="project-form">
+      <label for="project-name">Project name</label><input id="project-name" maxlength="80" required autocomplete="off">
+      <label for="task-select">Robot task</label><select id="task-select"><option value="custom">Custom / saved case</option></select>
+      <p id="task-description" class="field-note"></p>
+      <canvas id="task-preview" width="640" height="320" aria-label="Scenario preview, start, goal and static obstacle points"></canvas>
+      <p id="map-summary" class="field-note"></p>
+      <div class="guided-fields"><div><label for="robot-radius">Robot body radius (m)</label><input id="robot-radius" type="number" min="0.05" max="1.5" step="any" required></div><div><label for="required-clearance">Required body clearance (m)</label><input id="required-clearance" type="number" min="0" max="2" step="any" required></div><div><label for="mission-deadline">Mission deadline (s)</label><input id="mission-deadline" type="number" min="0.1" max="30" step="any" required></div><div><label for="position-variation">Obstacle variation (m)</label><input id="position-variation" type="number" min="0" max="1" step="any" required></div><div><label for="reference-radius">Reference planning radius (m)</label><input id="reference-radius" type="number" min="0.05" max="2" step="any" required></div><div><label for="proposed-radius">Proposed planning radius (m)</label><input id="proposed-radius" type="number" min="0.05" max="2" step="any" required></div><div><label for="reference-speed">Reference max speed (m/s)</label><input id="reference-speed" type="number" min="0.1" max="1.5" step="any" required></div><div><label for="proposed-speed">Proposed max speed (m/s)</label><input id="proposed-speed" type="number" min="0.1" max="1.5" step="any" required></div></div>
+      <p class="field-note">Planning radius changes navigation behaviour. Body radius and required clearance define the independent check.</p>
+      <details id="advanced-project"><summary>Advanced project data</summary>
+      <div class="editor-heading"><label for="project-json">Map &amp; planner configurations</label><button type="button" id="reset-project" class="text-button">Reset task</button></div>
+      <textarea id="project-json" spellcheck="false" aria-describedby="project-format"></textarea>
+      <p id="project-format" class="field-note">Data only. PythonRobotics DWA, static point obstacles and a circular robot. Coordinates are metres.</p>
+      </details>
+      <div class="file-actions"><label class="button secondary file-label" for="project-file">Open saved project</label><input id="project-file" type="file" accept="application/json,.json" class="sr-only"><button type="button" id="save-project" class="text-button">Save project</button></div>
+      <div class="budget-fields"><div><label for="search-budget">Search pairs</label><input id="search-budget" type="number" min="1" max="12" step="1" required></div><div><label for="reduction-budget">Reduction pairs</label><input id="reduction-budget" type="number" min="0" max="8" step="1" required></div></div>
+      <p class="budget-note"><strong id="simulation-cap">0</strong> local simulations maximum<span>Two configurations per pair. Verification is a separate, explicit rerun.</span></p>
+      <button class="button primary" id="start" type="submit" disabled>Run comparison <span aria-hidden="true">↗</span></button>
+    </form>
+    <div id="activity" hidden><div class="activity-line"><span id="activity-label">Running</span><button id="cancel" class="text-button" type="button">Cancel</button></div><progress id="progress" value="0" max="1" aria-label="Completed comparison simulations"></progress><p id="activity-count" class="field-note"></p></div>
+    <div class="section-heading archive-heading"><span class="eyebrow">02 / SAVED EVIDENCE</span><button id="refresh" class="text-button" type="button">Refresh</button></div>
+    <nav id="run-list" aria-label="Saved navigation comparisons"></nav>
+  </aside>
+  <main>
+    <div id="notice" class="notice" role="alert" hidden></div>
+    <section class="result-header"><div><p class="eyebrow">EXTERNAL PLANNER CONFIGURATION COMPARISON</p><h2 id="result-title">Did the update make navigation worse?</h2><p id="result-description" class="muted">Choose a robot task, adjust the requirements and compare two navigation settings. No hardware or project JSON is needed to start.</p></div><span id="result-state" class="badge" hidden></span></section>
+    <section id="empty" class="empty regression-empty"><span class="empty-symbol" aria-hidden="true">A / B</span><h3>A failing case you can keep.</h3><p>Search varied obstacle positions. Reduce a regression. Rerun the saved evidence after you change a configuration.</p><div class="scope-note">Uses the external PythonRobotics educational planner in a bounded 2D model. These results do not validate a physical robot.</div></section>
+    <section id="run-summary" class="experiment-summary" hidden aria-label="Actual recorded operation counts"></section>
+    <section id="replay" hidden>
+      <div class="comparison-heading"><h3>One scenario. Two configurations.</h3><span class="muted" id="finding-label"></span></div>
+      <div class="stages">
+        <article class="stage"><div class="stage-heading"><span class="policy-index hardened">A</span><h3 id="baseline-name">Reference</h3><span class="pill">Reference</span></div><div class="scene-wrap"><canvas id="baseline-scene" width="700" height="460" aria-label="Recorded reference path, obstacles and goal"></canvas><p id="baseline-live" class="scene-caption"></p></div><div id="baseline-metrics" class="metrics"></div></article>
+        <article class="stage"><div class="stage-heading"><span class="policy-index">B</span><h3 id="candidate-name">Proposed</h3><span class="pill">Proposed</span></div><div class="scene-wrap"><canvas id="candidate-scene" width="700" height="460" aria-label="Recorded proposed path, obstacles and goal"></canvas><p id="candidate-live" class="scene-caption"></p></div><div id="candidate-metrics" class="metrics"></div></article>
+      </div>
+      <div class="playback"><button id="play" class="button square" type="button" aria-label="Play recorded paths">Play</button><span id="clock" class="clock">0.00 s</span><label class="sr-only" for="timeline">Replay time</label><input id="timeline" type="range" min="0" max="1" step="0.05" value="0"><span id="end-time" class="end-time"></span><label class="sr-only" for="speed">Playback speed</label><select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select><button id="end" class="text-button" type="button">Final state</button></div>
+      <div class="regression-details"><article class="evidence-panel"><h3 id="case-title">Selected case</h3><p id="case-explanation" class="field-note"></p><dl id="case-details"></dl><button id="reuse-case" class="button secondary" type="button">Use this case for another change</button></article><article class="evidence-panel"><h3>Keep this regression test</h3><p class="field-note">The archive preserves both configurations, the scenario, operation journal and traces. Verification reruns the selected pair and checks its recorded results.</p><div class="evidence-actions"><button id="verify" class="button secondary" type="button">Verify by rerunning</button><a id="download" class="button secondary" href="#">Download evidence</a></div><p id="verification" class="field-note" aria-live="polite"></p></article></div>
+    </section>
+    <section id="no-pair" class="empty compact" hidden><h3>No completed pair to replay.</h3><p id="no-pair-description">The operation journal preserves any completed work.</p><button id="journal-verify" class="button secondary" type="button">Verify journal</button> <a id="journal-download" class="button secondary" href="#">Download evidence</a><p id="journal-verification" class="field-note" aria-live="polite"></p></section>
+    <details class="assumptions"><summary>Scope of this comparison</summary><p>This adapter executes the pinned external PythonRobotics Dynamic Window Approach planner. The project file selects numerical parameters, point obstacles, a start pose and a goal. It cannot execute uploaded Python, shell commands or arbitrary adapters.</p><p>Clearance and reaching the goal are separate outcomes. A no-regression search means no regression was found in the recorded budget. It does not establish safety, production readiness or a performance advantage over other tools.</p></details>
+    <footer>WorldFuzz <span>/</span> Repeatable configuration comparison <span>/</span> PythonRobotics DWA</footer>
+  </main>
+</div>
+</body></html>

@@ -1,0 +1,68 @@
+{
+  "selection_rule": "Rows floor((N-1)*q)+1, q=0.25,0.5,0.75, from each original scenario file, before execution",
+  "solver": "scipy.sparse.csgraph.dijkstra, weighted 8-connected grid without corner cutting",
+  "solver_calls": 12,
+  "replay_calls": 1,
+  "provider_calls": 0,
+  "cloud_jobs": 0,
+  "automatic_retries": 0,
+  "max_cells_per_map": 65536,
+  "optimal_length_tolerance": 1e-05,
+  "selected": [
+    {
+      "scenario_file": "Berlin_0_256.map.scen",
+      "data_row": 233,
+      "file_line": 234,
+      "raw_record": "23\tBerlin_0_256.map\t256\t256\t5\t112\t45\t33\t95.56854248"
+    },
+    {
+      "scenario_file": "Berlin_0_256.map.scen",
+      "data_row": 465,
+      "file_line": 466,
+      "raw_record": "46\tBerlin_0_256.map\t256\t256\t55\t166\t148\t38\t187.16652222"
+    },
+    {
+      "scenario_file": "Berlin_0_256.map.scen",
+      "data_row": 697,
+      "file_line": 698,
+      "raw_record": "69\tBerlin_0_256.map\t256\t256\t213\t71\t8\t151\t278.50461731"
+    },
+    {
+      "scenario_file": "Boston_0_256.map.scen",
+      "data_row": 238,
+      "file_line": 239,
+      "raw_record": "23\tBoston_0_256.map\t256\t256\t104\t161\t83\t244\t94.18376617"
+    },
+    {
+      "scenario_file": "Boston_0_256.map.scen",
+      "data_row": 475,
+      "file_line": 476,
+      "raw_record": "47\tBoston_0_256.map\t256\t256\t69\t72\t178\t210\t191.97770538"
+    },
+    {
+      "scenario_file": "Boston_0_256.map.scen",
+      "data_row": 712,
+      "file_line": 713,
+      "raw_record": "71\tBoston_0_256.map\t256\t256\t170\t39\t24\t18\t286.11984100"
+    },
+    {
+      "scenario_file": "Denver_0_256.map.scen",
+      "data_row": 235,
+      "file_line": 236,
+      "raw_record": "23\tDenver_0_256.map\t256\t256\t3\t184\t88\t164\t93.28427124"
+    },
+    {
+      "scenario_file": "Denver_0_256.map.scen",
+      "data_row": 470,
+      "file_line": 471,
+      "raw_record": "46\tDenver_0_256.map\t256\t256\t0\t17\t69\t174\t185.58073578"
+    },
+    {
+      "scenario_file": "Denver_0_256.map.scen",
+      "data_row": 705,
+      "file_line": 706,
+      "raw_record": "70\tDenver_0_256.map\t256\t256\t18\t7\t103\t251\t283.35028839"
+    }
+  ],
+  "wall_seconds_between_calls": 180
+}

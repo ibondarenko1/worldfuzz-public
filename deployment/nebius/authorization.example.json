@@ -1,0 +1,9 @@
+{
+  "approved": false,
+  "request_sha256": "80ff7fa08469e9362f05b356fbbe1b24e15e018500d29b1c88a638702c734dbc",
+  "max_requests": 1,
+  "max_completion_tokens": 512,
+  "maximum_usd": 1,
+  "rates_and_project_confirmed": false,
+  "cloud_jobs_approved": false
+}

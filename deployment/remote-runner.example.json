@@ -1,0 +1,6 @@
+{
+  "version": "1.0.0",
+  "kind": "remote_http",
+  "endpoint": "http://127.0.0.1:8766",
+  "token_env": "WORLDFUZZ_SESSION_TOKEN"
+}

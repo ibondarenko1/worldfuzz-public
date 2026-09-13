@@ -1,0 +1,291 @@
+{
+  "requests": {
+    "apply_retention": {
+      "before": 1789171200,
+      "dry_run": true,
+      "run_ids": [
+        "replace-with-run-id"
+      ]
+    },
+    "cancel_run": {
+      "run_id": "replace-with-run-id"
+    },
+    "compare_results": {
+      "left_id": "replace-with-left-run-id",
+      "mode": "repeat",
+      "right_id": "replace-with-right-run-id"
+    },
+    "compile_goal": {
+      "goal": {
+        "max_seconds": 30,
+        "operation": "solve_navigation",
+        "parameters": {
+          "algorithm": "astar",
+          "case_indices": [
+            0
+          ],
+          "max_cases": 1
+        },
+        "profile": "movingai.octile.v1"
+      },
+      "provider_mode": "disabled"
+    },
+    "create_backup": {
+      "max_mib": 256
+    },
+    "create_campaign": {
+      "allowed_mutations": [
+        "goal.parameters.algorithm"
+      ],
+      "budget": {
+        "artifact_bytes": 2097152,
+        "cpu_seconds": 60,
+        "max_attempts": 2,
+        "max_cases": 2,
+        "wall_seconds": 60
+      },
+      "cases": [
+        {
+          "case_id": "nav-0",
+          "goal": {
+            "operation": "solve_navigation",
+            "parameters": {
+              "algorithm": "astar",
+              "case_indices": [
+                0
+              ],
+              "max_cases": 1
+            },
+            "profile": "movingai.octile.v1"
+          },
+          "origin": "published"
+        }
+      ],
+      "immutable_criteria": [
+        "published source",
+        "verification protocol"
+      ],
+      "name": "Bounded published checks"
+    },
+    "create_suite": {
+      "dataset_result_id": "replace-with-dataset-run-id",
+      "name": "Verified navigation suite",
+      "purpose": "evaluation",
+      "selected_result_ids": [
+        "replace-with-verified-run-id"
+      ]
+    },
+    "create_webhook": {
+      "name": "local-events"
+    },
+    "describe_operation": {
+      "name": "compile_goal"
+    },
+    "execute_plan": {
+      "idempotency_key": "project-case-0-v1",
+      "plan_digest": "replace-with-plan-digest",
+      "plan_id": "replace-with-plan-id"
+    },
+    "export_result": {
+      "filters": {
+        "domain": "navigation"
+      },
+      "profile": "movingai.octile.v1"
+    },
+    "finalize_campaign": {
+      "campaign_id": "replace-with-campaign-id"
+    },
+    "find_resources": {
+      "cursor": 0,
+      "limit": 10,
+      "profile": "movingai.octile.v1"
+    },
+    "find_verified_results": {
+      "cursor": 0,
+      "dataset_result_id": "replace-with-dataset-run-id",
+      "limit": 25,
+      "operation": "solve_navigation",
+      "profile": "movingai.octile.v1",
+      "purpose": "evaluation"
+    },
+    "get_artifact_json": {
+      "name": "sensor-recording-inventory.json",
+      "result_id": "replace-with-run-id"
+    },
+    "get_asset": {
+      "asset_id": "replace-with-returned-asset-id"
+    },
+    "get_budget": {
+      "run_id": "replace-with-run-id"
+    },
+    "get_campaign": {
+      "campaign_id": "replace-with-campaign-id"
+    },
+    "get_capabilities": {},
+    "get_dataset_generation": {
+      "result_id": "replace-with-dataset-run-id"
+    },
+    "get_result": {
+      "result_id": "replace-with-run-id"
+    },
+    "get_result_report": {
+      "result_id": "replace-with-run-id"
+    },
+    "get_run": {
+      "run_id": "replace-with-run-id"
+    },
+    "get_run_audit": {
+      "run_id": "replace-with-run-id"
+    },
+    "get_service_metrics": {},
+    "get_suite": {
+      "suite_id": "replace-with-suite-id"
+    },
+    "get_workspace_usage": {},
+    "launch_campaign_case": {
+      "campaign_id": "replace-with-campaign-id",
+      "case_id": "nav-0",
+      "retry_key": "nav-0-attempt-1"
+    },
+    "organization_login": {
+      "operations": [
+        "get_capabilities"
+      ],
+      "organization": "demo-org",
+      "password": "<supply-through-local-protected-input>",
+      "principal": "demo-user",
+      "ttl_seconds": 3600,
+      "workspace": "demo-workspace"
+    },
+    "prepare_plan": {
+      "case_indices": [
+        0
+      ],
+      "max_seconds": 30,
+      "operation": "solve_navigation",
+      "profile": "movingai.octile.v1"
+    },
+    "read_signed_webhook": {
+      "after": 0,
+      "limit": 25,
+      "webhook_id": "replace-with-webhook-id"
+    },
+    "read_webhook": {
+      "after": 0,
+      "limit": 25,
+      "webhook_id": "replace-with-webhook-id"
+    },
+    "reconcile_run": {
+      "run_id": "replace-with-run-id"
+    },
+    "register_asset": {
+      "code_license": "MIT",
+      "data_license": "private test data",
+      "frame": "world",
+      "name": "Authored trajectory fixture",
+      "prediction": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "reference": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "source_url": "urn:example:trajectory",
+      "units": "m"
+    },
+    "register_sensor_recording": {
+      "code_license": "MIT",
+      "data_license": "replace-with-source-license",
+      "frame": "replace-with-declared-frame",
+      "mcap_base64": "replace-with-base64-mcap",
+      "name": "Published ROS 2 recording",
+      "platform": "aerial",
+      "ros_version": "ros2",
+      "source_revision": "replace-with-pinned-revision",
+      "source_url": "https://example.invalid/source",
+      "units": [
+        "m",
+        "s"
+      ]
+    },
+    "register_trajectory": {
+      "code_license": "MIT",
+      "data_license": "private test data",
+      "format": "tum.v1",
+      "frame": "world",
+      "name": "Authored TUM fixture",
+      "prediction_text": "0 0 0 0 0 0 0 1\n1 1 0 0 0 0 0 1",
+      "reference_text": "0 0 0 0 0 0 0 1\n1 1 0 0 0 0 0 1",
+      "source_url": "urn:example:tum",
+      "units": "m"
+    },
+    "restore_backup": {
+      "backup_id": "0123456789abcdef0123456789abcdef",
+      "max_mib": 256
+    },
+    "resume_run": {
+      "idempotency_key": "explicit-recovery-1",
+      "run_id": "replace-with-run-id"
+    },
+    "run_goal": {
+      "goal": {
+        "max_seconds": 20,
+        "operation": "solve_navigation",
+        "parameters": {
+          "case_indices": [
+            0
+          ]
+        },
+        "profile": "movingai.octile.v1"
+      },
+      "idempotency_key": "published-case-0",
+      "include_artifacts": true,
+      "wait_seconds": 20
+    },
+    "set_workspace_quota": {
+      "expected_version": 1,
+      "limits": {
+        "active_memory_bytes": 536870912,
+        "artifact_bytes": 16777216,
+        "cpu_seconds": 300,
+        "device_calls": 0,
+        "max_jobs": 10,
+        "model_calls": 0,
+        "wall_seconds": 600
+      }
+    },
+    "verify_result": {
+      "filters": {
+        "domain": "navigation"
+      },
+      "profile": "movingai.octile.v1"
+    },
+    "verify_run_result": {
+      "mode": "integrity",
+      "result_id": "replace-with-run-id"
+    }
+  },
+  "schema_version": "1.0.0",
+  "scope": "Authored requests; identifiers are placeholders and no execution is claimed"
+}

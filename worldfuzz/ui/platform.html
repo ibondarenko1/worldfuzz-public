@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WorldFuzz · Robotics workspace</title><link rel="stylesheet" href="/app.css"><link rel="stylesheet" href="/platform.css"></head>
+<body><main>
+<header><h1>WorldFuzz</h1><p>Prepare, run and compare bounded robotics work with its evidence kept beside the result.</p><nav><a href="/docs">Integration guide</a> · <a href="/openapi.json">API specification</a></nav></header>
+<section id="login" hidden><h2>Workspace sign in</h2><p>This server requires an organization-scoped session. The password stays in this form and is never saved by the page.</p><div class="grid">
+<label>Organization <input id="login-organization" autocomplete="organization"></label><label>Workspace <input id="login-workspace"></label>
+<label>Principal <input id="login-principal" autocomplete="username"></label><label>Password <input id="login-password" type="password" autocomplete="current-password"></label></div>
+<label><input id="login-import" type="checkbox"> Enable adding recordings in this session, if permitted by the workspace</label>
+<label><input id="login-recovery" type="checkbox"> Enable explicit recovery in this session, if permitted by the workspace</label>
+<button id="sign-in">Sign in</button><p id="login-error" role="alert"></p></section>
+<div id="workspace" hidden>
+<section><p class="step">1 · Define goal</p><h2>Choose a task</h2><label>Robot or component <select id="profile"></select></label>
+<details><summary>Profile semantics and supported execution</summary><p id="scope"></p><p id="adapter-info"></p></details>
+<h3>Available tasks and saved data</h3><p id="count"></p><ul id="resources"></ul><button id="more" disabled>Load more</button>
+<p id="selected-resource" class="notice" role="status"></p>
+<div id="import-recording" hidden></div>
+<label>Operation <select id="operation"></select></label><div id="adapter-fields"></div>
+<div class="grid limits"><label>Wall limit (seconds) <input id="max-seconds" type="number" min="1" max="3600" value="30"></label>
+<label>CPU limit (seconds) <input id="cpu-seconds" type="number" min="1" value="20"></label>
+<label>Memory limit (MiB) <input id="memory-mib" type="number" min="64" value="256"></label>
+<label>Artifact limit (MiB) <input id="artifact-mib" type="number" min="1" value="1"></label></div>
+<button id="prepare-adapter">Check compatibility, rights and limits</button>
+<details id="shortcuts"><summary>Built-in task shortcuts</summary><button id="solve">Run published navigation tasks</button>
+<button id="verify">Check saved recordings</button><button id="export">Prepare dataset export</button>
+<label>Dataset split <select id="split"><option value="">All existing splits</option><option>train</option><option>validation</option><option>test</option></select></label>
+<p>Sensor evaluation accepts paired prediction and reference tracks in metres, with matching timestamps and an explicit coordinate frame.</p>
+<label>Trajectory JSON <input id="asset" type="file" accept="application/json,.json"></label>
+<label>Position error threshold (metres) <input id="threshold" type="number" min="0" value="0.1" step="0.01"></label><button id="evaluate">Evaluate trajectory</button></details></section>
+<section><p class="step">2 · Review</p><h2>Compatibility and execution plan</h2><div id="compatibility" class="facts"></div><p id="plan-summary">Select a task to check its inputs and resource limits.</p><button id="execute" disabled>Run this plan</button><button id="cancel" disabled>Cancel run</button>
+<details><summary>Inputs, versions and exact limits</summary><pre id="plan"></pre></details></section>
+<section aria-live="polite"><p class="step">3 · Inspect</p><h2>Run and result</h2><div class="status-grid"><article><h3>Run state</h3><p id="run-state">Not started</p></article><article><h3>Task outcome</h3><p id="task-outcome">Not available</p></article><article><h3>Verification level</h3><p id="verification-level">Not evaluated</p></article></div><p id="ci-verdict"></p><p id="saved-recording" class="notice" hidden></p><p id="status">Ready. Select a published task or saved recording above.</p><div id="results"></div><div id="downloads"></div><button id="export-manifest" disabled>Download checked result</button>
+<div id="run-monitor" hidden><h3>Execution and resource usage</h3><div id="run-details"></div><button id="refresh-run" disabled>Refresh status and usage</button><button id="reconcile-run" disabled>Reconcile interrupted execution</button><button id="resume-run" disabled>Resume within original budget</button><p id="recovery-scope"></p></div>
+<details><summary>Open a saved result from this session</summary><label>Saved result <select id="saved-result"></select></label><button id="open-result" disabled>Open saved result</button></details></section>
+<section><p class="step">4 · Compare</p><h2>Compare completed runs</h2><p>Only compatible results are compared; the service rejects changed tasks, protocols or limits.</p><div class="grid"><label>Left result <select id="compare-left"></select></label><label>Right result <select id="compare-right"></select></label><label>Comparison <select id="compare-mode"><option value="repeat">Same procedure repeat</option><option value="algorithms">Navigation algorithms</option></select></label></div><button id="compare" disabled>Compare results</button><div id="comparison"></div></section>
+</div></main><script type="module" src="/platform.mjs"></script></body></html>

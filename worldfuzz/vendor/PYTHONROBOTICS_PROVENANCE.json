@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/AtsushiSakai/PythonRobotics",
+  "commit": "08b453a8e3b7a161b6fbbe6b73737758a8ec3482",
+  "source_path": "PathPlanning/DynamicWindowApproach/dynamic_window_approach.py",
+  "source_sha256": "985aa9acb1e6de234fa15ec9c83d5a7435ce2d9e22c6f6e308e1ab038141c471",
+  "license_path": "LICENSE",
+  "license_sha256": "ca6f10832a25c1cd07fa62872458ca336a6ea83ee2f2236216086bd7a5bbf264",
+  "retrieved_date": "2026-09-10",
+  "modified": false,
+  "integration": "Unmodified educational local planner. WorldFuzz supplies bounded scene and configuration data, uses circular robot mode, fixed sampling and forward-only motion, and does not run upstream plotting or main().",
+  "claim_boundary": "An external educational planner integration, not Nav2, a ROS deployment, a customer incident, or a comparison of upstream releases. Configuration experiments are tuning examples."
+}

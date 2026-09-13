@@ -1,0 +1,19 @@
+# Kali/Linux operator only. NOT run or accepted on Windows.
+# Host networking retains the application's loopback-only HTTP boundary.
+services:
+  worldfuzz:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    network_mode: host
+    init: true
+    restart: "no"
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m
+    volumes:
+      - ${WORLDFUZZ_PRIVATE_DIR:?set an operator-owned private directory}:/private
+    command: ["--authority", "/private/identity.sqlite3", "serve", "--port", "8766"]
+    mem_limit: 3g
+    cpus: 1.0
+    pids_limit: 32

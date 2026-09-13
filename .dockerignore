@@ -1,0 +1,4 @@
+**
+# The build receives only this candidate, never the checkout or other artifacts.
+!dist/
+!dist/worldfuzz-0.4.0rc6-py3-none-any.whl

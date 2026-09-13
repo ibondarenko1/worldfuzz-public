@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.ibondarenko1/worldfuzz",
+  "title": "WorldFuzz",
+  "description": "Run bounded robotics tasks and read independently checked results in your workspace.",
+  "version": "0.4.0rc6",
+  "repository": {"url": "https://github.com/ibondarenko1/worldfuzz-public", "source": "github"},
+  "packages": [{
+    "registryType": "pypi",
+    "registryBaseUrl": "https://pypi.org",
+    "identifier": "worldfuzz",
+    "version": "0.4.0rc6",
+    "runtimeHint": "uvx",
+    "transport": {"type": "stdio"},
+    "packageArguments": [
+      {"type": "positional", "value": "platform"},
+      {"type": "named", "name": "--placement", "format": "filepath", "isRequired": true,
+       "description": "Absolute path to an existing version-1.0.0 local workspace placement. Use authority/token_env for organization access; root/store is for the trusted filesystem owner."},
+      {"type": "positional", "value": "mcp"}
+    ],
+    "environmentVariables": [{
+      "name": "WORLDFUZZ_SESSION_TOKEN", "isSecret": true, "isRequired": false,
+      "description": "Existing scoped token for an organization placement using this token_env. Inject through the client's secret mechanism; omit for an owner-only local placement."
+    }]
+  }]
+}

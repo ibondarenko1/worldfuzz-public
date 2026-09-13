@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WorldFuzz · Data library</title><link rel="stylesheet" href="/regression.css"><script type="module" src="/data.mjs"></script></head><body><main>
+<header><p>WORLDFUZZ / REUSABLE ROBOTICS DATA</p><h1>From published tasks to reusable evidence.</h1><p>Inspect provenance, separate verification levels and export complete episodes.</p><nav><a href="/benchmarks">Published benchmark report</a> · <a href="/regression">Navigation experiments</a></nav></header>
+<section><h2>Your data library</h2><p id="summary" role="status">Loading local catalog…</p><button id="import">Import included Moving AI results</button><button id="refresh">Refresh</button><p id="message" role="status"></p></section>
+<section><h2>Build a dataset</h2><label>Domain <select id="domain"><option value="navigation">Navigation</option><option value="manipulation">Manipulation</option></select></label>
+<label>Verification <select id="status"><option value="">All levels</option value="OUTCOME_VERIFIED">Outcome verified</option><option value="STRUCTURE_VALIDATED">Structure validated only</option></select></label>
+<label>Label <select id="label"><option value="">All labels</option><option>optimal_route</option><option>source_reward_positive</option><option>source_reward_zero</option></select></label>
+<label>Split <select id="split"><option value="">All splits</option><option>train</option><option>validation</option><option>test</option></select></label>
+<p id="selection"></p><button id="export">Download episode JSONL</button><p>Exports retain states, actions, source metadata and checksums. Navigation groups share a map; manipulation groups share an initial state. A group never crosses splits. Small datasets may leave a split empty.</p>
+<p>Structure validation does not establish replay success. Simulator states are not policy observations. No model has been trained on these data.</p></section>
+<section><h2>Published sources</h2><div id="sources"></div></section>
+<section><h2>Episodes</h2><table><thead><tr><th>Source episode</th><th>Task</th><th>Verification</th><th>Label</th><th>Split</th></tr></thead><tbody id="episodes"></tbody></table></section>
+</main></body></html>

@@ -1,0 +1,10 @@
+{
+  "name": "Authored two-sample adapter integration fixture",
+  "source_url": "urn:worldfuzz:example:trajectory-extent:0.2.0",
+  "data_license": "MIT; authored numerical fixture, not a published robotics benchmark",
+  "code_license": "MIT",
+  "frame": "authored_shared_xyz",
+  "units": "m",
+  "prediction": [[1, 2, -3, 4], [2, 5, 6, 1]],
+  "reference": [[1, 2, -3, 4], [2, 5, 6, 1]]
+}

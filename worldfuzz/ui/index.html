@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WorldFuzz | Counterexample lab</title>
+  <meta name="description" content="Search synthetic robot scenarios, replay failures, and inspect the evidence.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/app.css">
+  <script type="module" src="/app.mjs"></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="/" aria-label="WorldFuzz home"><span class="brand-mark">W/</span>WorldFuzz</a><span class="product-label">COUNTEREXAMPLE LAB</span><span class="local-label">Local simulator <span class="divider">/</span> No API calls</span></header>
+<div class="workspace">
+  <aside class="sidebar">
+    <div class="section-heading"><span class="eyebrow">01 / EXPERIMENT</span></div>
+    <h1>Test a policy.</h1>
+    <p class="field-note"><a href="/benchmarks">Published benchmark results ↗</a></p><p class="field-note"><a href="/regression">Authored navigation examples ↗</a></p>
+    <form id="search-form">
+      <label for="case">Task</label><select id="case" name="case_id" required></select><p id="case-note" class="field-note"></p>
+      <label for="policy">Policy under test</label><select id="policy" name="policy"><option value="protective_distance">Protective distance</option><option value="baseline">Baseline</option></select>
+      <label for="method">Search method</label><select id="method" name="method"><option value="crossing_time">Crossing-time search</option><option value="random">Random search</option></select>
+      <label for="budget">Scenario limit</label><select id="budget" name="budget"><option value="12">12 scenarios</option><option value="24">24 scenarios</option><option value="48">48 scenarios</option><option value="1">1 scenario</option></select>
+      <div class="budget-note"><strong id="simulation-cap">24</strong> local simulations maximum<span>Each scenario runs with both policies.</span></div>
+      <button class="button primary" id="start" type="submit">Run search <span aria-hidden="true">↗</span></button>
+    </form>
+    <div id="activity" hidden><div class="activity-line"><span id="activity-label">Running</span><button id="cancel" class="text-button" type="button">Cancel</button></div><progress id="progress" value="0" max="24" aria-label="Completed simulations"></progress><p id="activity-count" class="field-note"></p></div>
+    <p class="sidebar-note">Fixed tuning tasks. Repeating a configuration repeats its candidates. This is an interactive search, not a new benchmark.</p>
+    <div class="section-heading archive-heading"><span class="eyebrow">02 / EVIDENCE</span><button id="refresh" class="text-button" type="button" aria-label="Refresh evidence list">Refresh</button></div>
+    <nav id="run-list" aria-label="Saved experiments"></nav>
+  </aside>
+  <main id="main">
+    <div id="notice" class="notice" role="status" hidden></div>
+    <section class="result-header"><div><p class="eyebrow" id="origin">REPLAY WORKSPACE</p><h2 id="result-title">Inspect what happened.</h2><p id="result-description" class="muted">Run a search or choose a saved experiment.</p></div><span id="result-state" class="badge" hidden></span></section>
+    <div id="empty" class="empty"><span class="empty-symbol" aria-hidden="true">[ / ]</span><h3>Every result starts with a run.</h3><p>Choose a task and run a local search. Saved recordings are available in the evidence list.</p></div>
+    <section id="experiment-summary" class="experiment-summary" hidden aria-label="Experiment totals"></section>
+    <section id="replay" hidden>
+      <div class="comparison-heading"><h3>Same scenario. Two policies.</h3><span id="scenario-label" class="muted"></span></div>
+      <div class="stages">
+        <article class="stage"><div class="stage-heading"><span class="policy-index">A</span><h3 id="target-policy">Policy under test</h3><span class="pill target">Under test</span></div><div class="scene-wrap"><canvas id="target-scene" width="700" height="400" aria-label="Recorded trajectory for policy under test"></canvas><p id="target-live" class="scene-caption"></p></div><div id="target-metrics" class="metrics"></div></article>
+        <article class="stage"><div class="stage-heading"><span class="policy-index hardened">B</span><h3>Hardened</h3><span class="pill">Comparison</span></div><div class="scene-wrap"><canvas id="hardened-scene" width="700" height="400" aria-label="Recorded trajectory for the hardened policy"></canvas><p id="hardened-live" class="scene-caption"></p></div><div id="hardened-metrics" class="metrics"></div></article>
+      </div>
+      <div class="playback"><button id="play" class="button square" type="button" aria-label="Play recorded traces">Play</button><span id="clock" class="clock">0.00 s</span><label class="sr-only" for="timeline">Replay time</label><input id="timeline" type="range" min="0" max="20" step="0.05" value="0"><span class="end-time">20 s</span><label class="sr-only" for="speed">Playback speed</label><select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select><button id="jump" class="text-button" type="button">First violation</button></div>
+      <div class="lower-grid">
+        <article class="plot-panel"><div class="panel-heading"><h3>Distance over time</h3><div class="legend"><span class="legend-target">Under test</span><span class="legend-hardened">Hardened</span></div></div><canvas id="distance-chart" width="1000" height="280" aria-label="Recorded distance samples and required safety distance"></canvas><p class="field-note">Minimum distance includes motion between samples. The chart shows recorded samples.</p></article>
+        <article class="evidence-panel"><h3>Scenario & evidence</h3><dl id="scenario-details"></dl><div class="evidence-actions"><button id="verify" class="button secondary" type="button">Verify by rerunning</button><a id="download" class="button secondary" href="#">Download evidence</a></div><p id="verification" class="field-note" aria-live="polite">Playback reads stored traces. Verification reruns local simulations.</p></article>
+      </div>
+      <details class="assumptions"><summary>What this simulation models</summary><p>Robot and pedestrian positions are point centers. The robot follows a straight route and stops instantly. The pedestrian follows a scripted crossing. Sensors use ideal positions with explicit delays and missing observations. These results apply to this synthetic scenario.</p><p>Hardened is an existing comparison policy. A completed route and a held distance requirement are separate outcomes. This view does not establish a complete policy fix or real-world robot safety.</p></details>
+    </section>
+    <section id="no-pair" class="empty compact" hidden><h3 id="no-pair-title">No paired trace yet.</h3><p id="no-pair-description">Completed operations remain in the evidence journal.</p><button id="journal-verify" class="button secondary" type="button">Verify journal</button> <a id="journal-download" class="button secondary" href="#">Download evidence</a><p id="journal-verification" class="field-note" aria-live="polite"></p></section>
+    <footer>WorldFuzz <span>/</span> Deterministic replay <span>/</span> Synthetic 2D model</footer>
+  </main>
+</div>
+</body></html>

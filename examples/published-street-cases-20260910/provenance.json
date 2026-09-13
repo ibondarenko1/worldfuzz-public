@@ -1,0 +1,61 @@
+{
+  "attribution": "Moving AI Lab, Nathan Sturtevant; city/street maps provided by Konstantin Yakovlev and Anton Andreychuk",
+  "citation": "N. Sturtevant, Benchmarks for Grid-Based Pathfinding, IEEE TCIAIG 4(2), 144-148, 2012",
+  "dataset": "Moving AI Lab city/street benchmarks",
+  "format": "https://www.movingai.com/benchmarks/formats.html",
+  "license": "Open Data Commons Attribution License 1.0",
+  "license_url": "https://opendatacommons.org/licenses/by/1-0/",
+  "modified": false,
+  "retrieved": "2026-09-10",
+  "source_page": "https://www.movingai.com/benchmarks/street/index.html",
+  "sources": [
+    {
+      "archive_member": "Berlin_0_256.map",
+      "archive_sha256": "da31ab91fbd8e8767774658771d7a5a049c37295434c8c528fe8751db1cbd648",
+      "bytes": 66087,
+      "file": "Berlin_0_256.map",
+      "sha256": "9fc2a576f930a7df9646969bed1e1a48d1f2e0c30574d2f72586901bc00ba1d4",
+      "url": "https://www.movingai.com/benchmarks/street/Berlin_0_256.map.zip"
+    },
+    {
+      "archive_member": "Berlin_0_256.map.scen",
+      "archive_sha256": "e31e66bea2bf2f680ac885571e01e1732760be6fde57e9c658f6ff3249341c76",
+      "bytes": 50837,
+      "file": "Berlin_0_256.map.scen",
+      "sha256": "b8079ed2260df9c9d40748444f6accbea5f5eeaa6bd046880203046616c85d62",
+      "url": "https://www.movingai.com/benchmarks/street/Berlin_0_256.map-scen.zip"
+    },
+    {
+      "archive_member": "Boston_0_256.map",
+      "archive_sha256": "f637e911d2b61222a173bd8762c967d1eefaaff5375d932d3de3779b9234bb65",
+      "bytes": 66089,
+      "file": "Boston_0_256.map",
+      "sha256": "992299786882228ff5e27112e7422124912bffec42655bb5d2375f4fd9ba8102",
+      "url": "https://www.movingai.com/benchmarks/street/Boston_0_256.map.zip"
+    },
+    {
+      "archive_member": "Boston_0_256.map.scen",
+      "archive_sha256": "54df41affc40e0b6c545c12af154530e05a7a1b1d4e1068524796f35e6ba667c",
+      "bytes": 51942,
+      "file": "Boston_0_256.map.scen",
+      "sha256": "8010f0208ae82616c4158b58fbdbe7e6aa48a6caff0556a9df7f94114d0a6e38",
+      "url": "https://www.movingai.com/benchmarks/street/Boston_0_256.map-scen.zip"
+    },
+    {
+      "archive_member": "Denver_0_256.map",
+      "archive_sha256": "cb34b9dadeba553b6a0be03afd5974d530c419837664601db4e3f1cf1f2e836b",
+      "bytes": 66089,
+      "file": "Denver_0_256.map",
+      "sha256": "e14c122d8a30f6fe106b06ba1948da21b7cc5f34fe96885c656e8a2d60566bfb",
+      "url": "https://www.movingai.com/benchmarks/street/Denver_0_256.map.zip"
+    },
+    {
+      "archive_member": "Denver_0_256.map.scen",
+      "archive_sha256": "c18d1808db54ddf07aba08546ee89cbeba949d6d735f75ca1c6f9ea662bfc5f4",
+      "bytes": 51276,
+      "file": "Denver_0_256.map.scen",
+      "sha256": "9e6b81a809367e512c4f24f44190edc899967c33ab81f9283ad3adbba5ee6995",
+      "url": "https://www.movingai.com/benchmarks/street/Denver_0_256.map-scen.zip"
+    }
+  ]
+}

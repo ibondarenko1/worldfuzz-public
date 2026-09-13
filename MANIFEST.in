@@ -1,0 +1,39 @@
+include LICENSE
+include server.json
+recursive-include integrations *.md *.json
+include integrations/mcp/schema/LICENSE
+include README.md
+include CONTRIBUTING.md
+include docs/ADAPTERS.md
+include docs/SUPPORT.md
+include docs/COMPATIBILITY.md
+include docs/USAGE_METRICS.md
+recursive-include examples/adapters/trajectory_extent *.py *.toml *.md *.json LICENSE
+include README_HISTORICAL.md
+include docs/PLATFORM.md
+include docs/DOCUMENTATION.md
+include docs/RELEASE_SCOPE.md
+include deployment/public/THIRD_PARTY_NOTICES.md
+recursive-include deployment/public/licenses *.txt *.json
+include docs/ORGANIZATIONS.md
+include pyproject.toml
+include .dockerignore
+include docs/RELEASE_INSTALLATION.md
+include docs/WORKSPACE_RECOVERY.md
+include docs/contracts/openapi-v1.0.0.json
+include docs/contracts/operation-examples-v1.0.0.json
+include deployment/Dockerfile
+include deployment/compose.yaml
+include deployment/remote-runner.example.json
+include deployment/postgresql/001_catalog.sql
+include deployment/postgresql/002_m1_catalog.sql
+include examples/published-street-cases-20260910/README.md
+include examples/published-street-cases-20260910/manifest.json
+include examples/published-street-cases-20260910/provenance.json
+include examples/published-street-cases-20260910/report.json
+include examples/published-street-cases-20260910/selection.json
+include examples/m6-acceptance-20260911/README.md
+include examples/m6-acceptance-20260911/receipt.json
+recursive-exclude . *.sqlite *.sqlite3 *.db *.h5 *.hdf5 *.dpapi *.pem
+recursive-exclude . *connection.enc.json *connection-request.json credentials.json
+recursive-exclude artifacts *

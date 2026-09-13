@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "worldfuzz"
+version = "0.4.0rc6"
+description = "Versioned robotics tasks, checked datasets and local API/SDK/MCP integration"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["mcap==1.4.0", "mcap-ros2-support==0.5.7", "pymunk==7.2.0"]
+
+[project.optional-dependencies]
+render = ["Pillow>=10,<13"]
+connection = ["cryptography>=50.0.1,<51"]
+navigation = ["numpy>=1.24,<3", "matplotlib>=3.7,<4"]
+benchmarks = ["numpy>=1.24,<3", "scipy>=1.11,<2"]
+browser-acceptance = ["playwright>=1.52,<2", "psutil>=7,<8"]
+
+data = ["numpy>=1.24,<3", "h5py>=3.11,<4"]
+postgresql = ["psycopg[binary]>=3.2,<4"]
+can-replay = ["robosuite==1.5.1", "mujoco==3.2.7", "numpy==2.2.6", "numba==0.61.2", "mink==0.0.13", "h5py==3.16.0"]
+
+[project.scripts]
+worldfuzz = "worldfuzz.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["worldfuzz*"]
+
+[tool.setuptools.package-data]
+worldfuzz = ["documentation/*.html", "documentation/*.css", "documentation/*.json", "ui/*.html", "ui/*.css", "ui/*.mjs", "ui/*.svg", "vendor/PYTHONROBOTICS_LICENSE", "vendor/PYTHONROBOTICS_PROVENANCE.json", "benchmark_data/*.map", "benchmark_data/*.scen", "benchmark_data/*.json", "benchmark_data/*.md", "benchmark_data/can-replay-v1/*.json", "benchmark_data/can-replay-v1/*.xml", "sql/postgresql/*.sql"]
+
+[tool.setuptools.data-files]
+"share/worldfuzz/developer" = ["docs/ADAPTERS.md", "CONTRIBUTING.md", "docs/SUPPORT.md", "docs/COMPATIBILITY.md", "docs/USAGE_METRICS.md", "docs/RELEASE_INSTALLATION.md"]
+"share/worldfuzz/integrations/mcp" = ["server.json", "integrations/mcp/README.md", "integrations/mcp/WP32_PROTOCOL.md", "integrations/mcp/claude-desktop.example.json", "integrations/mcp/vscode.example.json", "integrations/mcp/gemini-cli.example.json"]
+"share/worldfuzz/integrations/mcp/schema" = ["integrations/mcp/schema/server-2025-12-11.schema.json", "integrations/mcp/schema/README.md", "integrations/mcp/schema/LICENSE"]
+"share/worldfuzz/integrations/worldfuzz" = ["integrations/skills/worldfuzz/SKILL.md", "LICENSE"]
+"share/worldfuzz/integrations/worldfuzz/references" = ["integrations/skills/worldfuzz/references/navigation.md"]
+"share/worldfuzz/contracts" = ["docs/contracts/openapi-v1.0.0.json", "docs/contracts/operation-examples-v1.0.0.json"]
+"share/worldfuzz/deployment" = ["deployment/compose.yaml", "deployment/remote-runner.example.json"]
+"share/worldfuzz/deployment/postgresql" = ["deployment/postgresql/001_catalog.sql", "deployment/postgresql/002_m1_catalog.sql"]
+"share/worldfuzz/examples/published-street-cases-20260910" = ["examples/published-street-cases-20260910/README.md", "examples/published-street-cases-20260910/manifest.json", "examples/published-street-cases-20260910/provenance.json", "examples/published-street-cases-20260910/report.json", "examples/published-street-cases-20260910/selection.json"]
+"share/worldfuzz/examples/m6-acceptance-20260911" = ["examples/m6-acceptance-20260911/README.md", "examples/m6-acceptance-20260911/receipt.json"]
+"share/worldfuzz/licenses" = ["worldfuzz/vendor/PYTHONROBOTICS_LICENSE", "worldfuzz/benchmark_data/README.md"]
+"share/worldfuzz/licenses/third-party" = ["deployment/public/licenses/ROBOMIMIC_LICENSE.txt", "deployment/public/licenses/ROBOSUITE_LICENSE.txt", "deployment/public/licenses/APACHE-2.0.txt", "deployment/public/licenses/sources.json", "deployment/public/THIRD_PARTY_NOTICES.md"]

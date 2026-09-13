@@ -1,0 +1,26 @@
+{
+  "name": "Pymunk published basic_test falling ball",
+  "source_url": "https://github.com/viblo/pymunk/blob/3ef8f6e304fdc09e16c8ca2cfb1a3aa88a9399bc/pymunk/examples/basic_test.py",
+  "source_commit": "3ef8f6e304fdc09e16c8ca2cfb1a3aa88a9399bc",
+  "source_git_blob": "c507316814762758410e2dce0e6cc1be2e9841e7",
+  "source_sha256": "f47c1864338761b3d7298ee5e3dfa2e7852717cb9763c5718e80652e46656d31",
+  "source_bytes": 1447,
+  "license": "MIT",
+  "engine": "pymunk",
+  "engine_version": "7.2.0",
+  "native_engine": "Munk2D",
+  "native_engine_version": "2.0.1-ade7ed72849e60289eefb7a41e79ae6322fefaf3",
+  "adaptation": "headless deterministic record collection around the published Space, gravity, ball and 5000-step loop",
+  "parameters": {
+    "gravity_px_per_s2": [0.0, -900.0],
+    "mass": 10.0,
+    "radius_px": 25.0,
+    "initial_y_px": 400.0,
+    "x_min_px": 115,
+    "x_max_px": 350,
+    "spawn_tick": 9,
+    "steps": 5000,
+    "dt_seconds": 0.02,
+    "remove_below_y_px": 0.0
+  }
+}

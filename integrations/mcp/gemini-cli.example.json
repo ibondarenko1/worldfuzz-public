@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "worldfuzz": {
+      "command": "/absolute/path/to/worldfuzz-python",
+      "args": [
+        "-m",
+        "worldfuzz",
+        "platform",
+        "--placement",
+        "/absolute/path/to/authorized-placement.json",
+        "mcp"
+      ],
+      "trust": false,
+      "timeout": 30000
+    }
+  }
+}

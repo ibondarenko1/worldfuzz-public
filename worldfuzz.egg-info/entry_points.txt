@@ -1,0 +1,2 @@
+[console_scripts]
+worldfuzz = worldfuzz.cli:main

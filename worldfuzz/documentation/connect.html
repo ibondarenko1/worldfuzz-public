@@ -1,0 +1,46 @@
+<p>HTTP, Python SDK, CLI and MCP use one service and the same contracts. Use the Python environment containing WorldFuzz {{version}}. Paths below are examples: use absolute workspace paths in unattended clients.</p>
+<h2>Local Python SDK</h2><p>For your own loopback service in the quickstart, obtain its ephemeral bootstrap token in memory. Organization mode disables bootstrap.</p>
+<pre><code data-python="sdk-local">import json
+from urllib.request import urlopen
+from worldfuzz.platform.sdk import Client
+
+base = "http://127.0.0.1:8766"
+with urlopen(base + "/bootstrap", timeout=5) as response:
+    token = json.load(response)["token"]
+client = Client(base, token)
+resources = client.call("find_resources", {"profile": "movingai.octile.v1", "limit": 9})
+</code></pre>
+<p>Keep tokens out of code repositories, URLs, logs and screenshots. All task routes require a bearer token. Public documentation and UI assets do not grant access to results.</p>
+<h2>Organization login and scoped clients</h2><p>An operator provisions the organization, principal, workspace and allowed operations first. Membership is separate from source data rights. A token must permit every internal step of a workflow, including preparation and result reads.</p>
+<pre><code data-python="sdk-organization">from getpass import getpass
+from worldfuzz.platform.sdk import Client
+
+base = "http://127.0.0.1:8766"
+login = Client(base, "").call("organization_login", {
+    "organization": "your-org", "principal": "your-principal",
+    "workspace": "your-workspace", "password": getpass("Workspace password: "),
+    "operations": ["run_goal", "compile_goal", "prepare_plan", "execute_plan",
+                   "get_run", "get_result", "get_result_report", "find_resources"],
+    "ttl_seconds": 3600,
+})
+if login["status"] != "ok":
+    raise RuntimeError(login["error"]["code"])
+client = Client(base, login["data"]["token"])
+</code></pre>
+<p>Missing, expired or revoked membership/token scope blocks the request and worker. <code>include_artifacts</code> also requires <code>get_artifact_json</code>. Do not request every operation to work around a denial; have the owner grant only the needed scope.</p>
+<h2>CLI against the same HTTP gateway</h2><p>Save this non-secret placement configuration as <code>remote.json</code>, and supply <code>WORLDFUZZ_SESSION_TOKEN</code> through a protected environment. No token belongs in the file:</p>
+<pre><code>{"version":"1.0.0","kind":"remote_http","endpoint":"http://127.0.0.1:8766","token_env":"WORLDFUZZ_SESSION_TOKEN"}</code></pre>
+<pre><code>python -m worldfuzz platform --placement remote.json run navigation --resource movingai:0 --case-index 0 --key my-nav-0 --max-seconds 30 --cpu-seconds 20 --memory-mib 256 --artifact-mib 1 --wait-seconds 30</code></pre>
+<p>The local <code>--authority PATH</code> variant uses an existing organization token directly. <code>platform call OPERATION --json-file request.json</code> supports all service operations. Discover exact schemas and examples in the <a href="api.html">generated reference</a>.</p>
+<h2>MCP stdio</h2><p>Configure an already installed MCP client with the same Python and placement file. The client must supply the existing token environment; do not include a secret in this configuration:</p>
+<p>The supplied integration kit includes an optional <code>worldfuzz</code> Agent Skill and prepared MCP Registry metadata for the same Python stdio package. Install the skill into your client's project skill directory. Its compact instructions link to these pages and help preserve exact resource IDs, budgets, idempotency and evidence. No Registry or PyPI presence is established by these prepared files.</p>
+<pre><code>{
+  "mcpServers": {
+    "worldfuzz": {
+      "command": "/absolute/path/to/python",
+      "args": ["-m", "worldfuzz", "platform", "--placement", "/absolute/path/to/remote.json", "mcp"]
+    }
+  }
+}</code></pre>
+<p><code>worldfuzz</code> is the server label. <code>run_goal</code>, <code>find_resources</code> and <code>compare_results</code> are tool names. <code>solve_navigation</code> is an adapter operation inside a tool argument, not a separate MCP tool. Let the host perform its own namespacing; never manually double-prefix a tool name.</p>
+<p>The server supports stdio initialization, tool discovery/calls and the <code>worldfuzz://capabilities</code> resource. It does not advertise Streamable HTTP or experimental MCP Tasks. Append <code>--read-only</code> after <code>mcp</code> for an inspection-only connection; writes remain rejected. This configuration does not imply registry publication or client certification.</p>

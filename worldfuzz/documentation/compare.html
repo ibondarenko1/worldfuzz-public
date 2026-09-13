@@ -1,0 +1,12 @@
+<p>Compare two completed, accessible results with the same task/evaluation contract. Reading or comparing saved results does not start another solver or upgrade their verification.</p>
+<h2>Choose the correct comparison</h2><ul><li><code>repeat</code>: the same procedure and compatible protocol for a repeated run.</li><li><code>algorithms</code>: supported Moving AI A* versus Dijkstra, with the same pinned cases and evaluation contract.</li></ul>
+<p>Use the result IDs returned by the actual runs. The service checks source/profile versions, tasks, metrics and compatible limits. It refuses incompatible results; it does not align coordinate frames or normalize different robot tasks on your behalf.</p>
+<pre><code data-python="compare">comparison = client.call("compare_results", {
+    "left_id": "replace-with-left-result-id",
+    "right_id": "replace-with-right-result-id",
+    "mode": "algorithms",
+})
+</code></pre>
+<p>In the UI, choose both completed results and the comparison mode under <strong>Compare completed runs</strong>. A saved result is explicitly a recording. It remains subject to current workspace and source access.</p>
+<h2>Interpret the report</h2><p>Read compatible metrics and the recorded outcomes, not just client exit status. A valid path and matching published length can be compared within this grid task; they do not certify body dynamics, flight performance or physical safety. A technical error is different from a robotic-task failure.</p>
+<p><a href="api.html#compare_results">Current comparison schema</a> ? <a href="errors.html">Common refusals</a></p>

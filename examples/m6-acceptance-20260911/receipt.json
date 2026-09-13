@@ -1,0 +1,60 @@
+{
+  "milestone": "M6",
+  "status": "ACCEPTED_LOCAL_SCOPE",
+  "implementation_commit": "9346c124cd298bb5f6fa3583bd267d12fb5281c7",
+  "work_packages": [
+    "WP25",
+    "WP26",
+    "WP27",
+    "WP28"
+  ],
+  "full_regression": {
+    "tests": 291,
+    "passed": 264,
+    "skipped": 27,
+    "failed": 0,
+    "duration_seconds": 136.62533830001485,
+    "runs": 1,
+    "executor_pid": 338488
+  },
+  "post_review_focused_checks": {
+    "restore_policy": 4,
+    "organization_namespace": 1,
+    "updated_installed_placement": 1,
+    "failed": 0,
+    "skipped": 0,
+    "reason": "Preserve original PolicyGrant restrictions/revocation across restores; verify updated package"
+  },
+  "skip_reasons": {
+    "Optional pinned Can runtime absent: Install the pinned optional Can replay runtime": 2,
+    "POSIX ownership and permissions": 1,
+    "POSIX symlink protection": 1,
+    "Receiver private storage requires POSIX permissions": 11,
+    "set WORLDFUZZ_TEST_POSTGRES_DSN to an isolated test cluster": 9,
+    "optional navigation dependencies unavailable": 3
+  },
+  "retained_source_sha256": "e336d598a75fcd221b87e200f337d605bdf1a9523dd2d84e7771d4d64bdbb737",
+  "original_source_restored_or_downloaded": false,
+  "postgresql_schema_or_repository_changed": false,
+  "scope": [
+    "local organization login and isolated SQLite workspaces",
+    "source-local and installed-wheel loopback HTTP placements",
+    "authorized separate recovery and artifact retention",
+    "atomic workspace quotas across HTTP/SDK/CLI/MCP"
+  ],
+  "unverified": [
+    "Kali/Linux Compose execution",
+    "cross-host transport and public hosting",
+    "external SSO",
+    "PostgreSQL tenant job deployment",
+    "authority infrastructure disaster recovery",
+    "non-artifact retention"
+  ],
+  "remaining_project_executors": [],
+  "provider_calls": 0,
+  "cloud_jobs": 0,
+  "training_runs": 0,
+  "device_calls": 0,
+  "publication": false,
+  "M7_entered": false
+}

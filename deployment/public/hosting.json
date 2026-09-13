@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "provider": "GitHub Pages",
+  "repository": "ibondarenko1/worldfuzz-public",
+  "base_url": "https://ibondarenko1.github.io/worldfuzz-public",
+  "documentation_url": "https://ibondarenko1.github.io/worldfuzz-public/docs/index.html",
+  "custom_domain": null,
+  "deployment_trigger": "workflow_dispatch_only",
+  "publication_performed": false,
+  "hosting_verified": false,
+  "free_route": "Public repository Pages; local wheel execution, no hosted API"
+}
