@@ -7,15 +7,18 @@ WorldFuzz connects a local workspace to the same **platform service** through a
 browser, Python SDK, CLI and MCP. A run keeps exact inputs and versions, rights,
 resource limits, task outcomes, verification and downloadable artifacts together.
 
-Current free preview candidate: **0.4.0rc6**, Python **3.11+**. Publication is pending.
-No public site, PyPI release or MCP registry listing is claimed.
+Free preview: **0.4.0rc6**, Python **3.11+**. Download the original archives from
+[GitHub Releases](https://github.com/ibondarenko1/worldfuzz-public/releases/tag/v0.4.0rc6)
+and read the [static documentation](https://ibondarenko1.github.io/worldfuzz-public/docs/index.html).
+PyPI and MCP Registry remain unpublished. See [PUBLIC_PREVIEW](PUBLIC_PREVIEW.md)
+for the selected real NVIDIA/Nebius navigation result and publication scope.
 WP33 remains **ACCEPTED_TESTED_SCOPE** for the retained rc1 native and rc2 Kali
 container receipts; later candidates do not repeat that matrix. See the
 [release scope](docs/RELEASE_SCOPE.md) for changes and retained evidence limits.
 
 ## Start with the platform
 
-Obtain the operator-supplied release bundle and check its SHA256SUMS. In a new
+Download the wheel and SHA256SUMS from the release above and verify the file hash. In a new
 Python environment, install the supplied wheel. The package resolves its pinned
 base dependencies; installation needs network access unless they are cached:
 

@@ -1,0 +1,52 @@
+# Copy to the NEW public snapshot repository only after approval.
+# No push, tag, release or pull_request trigger.
+name: Publish approved static documentation
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        required: true
+        default: v0.4.0rc6
+      site_sha256:
+        required: true
+        description: Approved SHA-256 from the reviewed release manifest
+permissions:
+  contents: read
+concurrency:
+  group: manual-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Obtain only the selected immutable release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          SITE_SHA256: ${{ inputs.site_sha256 }}
+        run: |
+          gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --pattern worldfuzz-static-docs-0.4.0rc6.zip
+          printf '%s  %s\n' "$SITE_SHA256" worldfuzz-static-docs-0.4.0rc6.zip | sha256sum -c -
+          python - <<'PY'
+          import pathlib, zipfile
+          with zipfile.ZipFile('worldfuzz-static-docs-0.4.0rc6.zip') as z:
+              for i in z.infolist():
+                  p = pathlib.PurePosixPath(i.filename)
+                  if p.is_absolute() or '..' in p.parts or i.file_size > 2**22:
+                      raise ValueError('Unexpected documentation member')
+              z.extractall('site')
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
+        id: deployment
