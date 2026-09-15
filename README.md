@@ -1,4 +1,4 @@
-# WorldFuzz
+.# WorldFuzz
 
 <!-- mcp-name: io.github.ibondarenko1/worldfuzz -->
 
