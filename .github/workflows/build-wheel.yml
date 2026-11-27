@@ -1,0 +1,35 @@
+name: Minimum wheel build dependencies
+on:
+  pull_request:
+    branches: [release]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  wheel:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: ['.', 'examples/adapters/trajectory_extent']
+    defaults:
+      run:
+        working-directory: ${{ matrix.project }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install the minimum build backend
+        shell: python
+        run: |
+          import subprocess
+          import sys
+          import tomllib
+
+          with open("pyproject.toml", "rb") as metadata:
+              requirement, = tomllib.load(metadata)["build-system"]["requires"]
+          backend, minimum = requirement.split(">=")
+          subprocess.run([sys.executable, "-m", "pip", "install", "build", f"{backend}=={minimum}"], check=True)
+      - run: python -m build --wheel --no-isolation --outdir "$RUNNER_TEMP/wheels"
